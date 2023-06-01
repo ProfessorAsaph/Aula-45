@@ -8,7 +8,9 @@ export default function TabelaProdutos({produtos}) {
         <table>
             <tr>
                 <th>Nome</th>
+                <th>Categoria</th>
                 <th>Preço</th>
+                <th>Estoque</th>
             </tr>
             {listarProdutos}
         </table>
@@ -16,14 +18,24 @@ export default function TabelaProdutos({produtos}) {
 }
 
 function ProdutoTableRow({produto}){
-    return(
-        <tr>
-            {produto.stocked ? 
+
+    if(produto.stocked){
+        return(
+            <tr>
                 <td>{produto.name}</td> 
-            : 
-                <td style={{ color: 'red' }} >{produto.name}</td>
-            }
-            <td>{produto.price}</td>
-        </tr>
-    );
+                <td>{produto.category}</td>
+                <td>{produto.price}</td>
+                <td>Em estoque</td>
+            </tr>
+        );
+    } else {
+        return(
+            <tr style={{ color: 'red' }}>
+                <td>{produto.name}</td> 
+                <td>{produto.category}</td>
+                <td>{produto.price}</td>
+                <td>Em falta</td>
+            </tr>
+        );
+    }
 }
