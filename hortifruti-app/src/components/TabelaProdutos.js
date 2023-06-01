@@ -1,8 +1,22 @@
-export default function TabelaProdutos({produtos}) {
+export default function TabelaProdutos({produtos, filtro, somenteEstoque}) {
 
-    const listarProdutos = produtos.map( produto => 
-        <ProdutoTableRow produto={produto} key={produto.name}/>
-    );
+    const listarProdutos = [];
+    
+    produtos.forEach((produto) => {
+        //se o nome do produto não conter a string filtro, o loop retorna sem fazer nada
+        if(produto.name.toLowerCase().indexOf(filtro.toLowerCase()) === -1){
+            return;
+        }
+
+        //Se a opção de somente estoque for verdadeira, e o produto não estiver em estoque, o loop retorna sem fazer nada
+        if(somenteEstoque && !produto.stocked){
+            return;
+        }
+
+        //Em caso do produto não ser filtrado nas condicionais acima,um ProdutoTableRow é adicionado na lista de produtos
+        listarProdutos.push(<ProdutoTableRow key={produto.name} produto={produto} />)
+
+    });
 
     return(
         <table>

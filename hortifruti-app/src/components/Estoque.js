@@ -14,23 +14,29 @@ export default function Estoque({produtos}) {
                 somenteEstoque={somenteEstoque}
                 aoModificarEstoque={setSomenteEstoque}
             />
-            <TabelaProdutos produtos={produtos} />
+            <TabelaProdutos 
+                produtos={produtos} 
+                filtro={filtro}
+                somenteEstoque={somenteEstoque}
+            />
         </>
     );
 }
 
-function BarraPesquisa({filtro, somenteEstoque}){
+function BarraPesquisa({filtro, somenteEstoque, aoModificarFiltro, aoModificarEstoque}){
     return(
         <form>
         <input
             type="text" 
             placeholder="Pesquisar..."
-            value={filtro}         
+            value={filtro}
+            onChange={(e) => aoModificarFiltro(e.target.value)}
         />
         <label>
             <input
                 type="checkbox"
                 checked={somenteEstoque}
+                onChange={(e) => aoModificarEstoque(e.target.checked)}
             />
             Somente mostrar produtos em estoque
         </label>
